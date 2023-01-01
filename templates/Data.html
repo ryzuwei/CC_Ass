@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+</style>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $("#find_id").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#eid tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Employee Information</title>
+    <p style="background-color: #fefbe9; color: #183a1d; text-align: center; font-size: 3em; font-family: 'SaolDisplay', san-serif;">EMPLOYEE DATABASE</p>
+  
+</head>
+	<body style="background-color: #fefbe9;">
+  <!-- <div style="background-color: #e1eedd; color: #183a1d; width: 80%; margin: 10px auto; border-radius: 5px;"> -->
+
+<div class="table-responsive" style="width: 80%; margin: 10px auto;">
+
+    <div class="input-group rounded" style="width: 70%; margin: auto;">
+        <input id="find_id" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+        <span class="input-group-text border-0" id="search-addon">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+
+      <br>
+    <form action="/fetchdata3" autocomplete="on" method = "POST" enctype="multipart/form-data">
+    <table id="emp_table" class="table table-bordered table-hover responsive" style="background-color: #e1eedd;">
+        <thead style="background-color: #183a1d; color: #fefbe9; text-align: center;">
+            <tr>
+                <th style="text-align:center;">Employee ID</th>
+                <th style="text-align:center;">First Name</th>
+                <th style="text-align:center;">Last Name</th>
+                <th style="text-align:center;">Primary Skills</th>
+                <th style="text-align:center;">Location</th>
+                <th style="text-align:center;">Edit</th>
+            </tr>
+        </thead>
+        <tbody   id="eid">
+            {% for row in result %}
+            <tr>
+                <td style='text-align:center;'>{{row.0}}</td>
+                <td style='text-align:center;'>{{row.1}}</td>
+                <td style='text-align:center;'>{{row.2}}</td>
+                <td style='text-align:center;'>{{row.3}}</td>
+                <td style='text-align:center;'>{{row.4}}</td>
+                <td style='text-align:center;'><button formaction="/fetchdata3/{{row.0}}" class="btn btn-primary btn-xs editFunction">Edit</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+</div>
+			
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	</body>
+
+</html>
+
